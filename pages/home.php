@@ -34,7 +34,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand logo-text page-scroll" href="index.html"> <?php  session_start(); echo $_SESSION['nickname'];?></a> 
+            <a class="navbar-brand logo-text page-scroll"> <?php  session_start(); echo $_SESSION['nickname'];?></a>
             
             <span id="1" class="fa fa-star"></span>
             <span id="2" class="fa fa-star"></span>
