@@ -2199,6 +2199,10 @@ a:hover.back-to-top {
 	.ex-basic-2 .image-container-small {
 		margin-left: 1.75rem;
 	}
+	
+	.checked {
+		color: orange;
+	  }
 	/* end of extra pages */
 }
 /* end of min-width 1200px */
