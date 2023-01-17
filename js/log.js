@@ -13,7 +13,7 @@ function login() {
         
         if (xhttp.readyState == 4 && xhttp.status == 200) {
         if (xhttp.responseText==1) {
-           window.location.href = "pages/home.html";
+           window.location.href = "pages/home.php";
         } else document.getElementById("log").innerHTML = "Mail o password non corretti.<br>";
             
         }
@@ -22,4 +22,8 @@ function login() {
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("mail="+mail+"&psw="+psw);
 }
+}
+
+function goRegister() {
+  window.location.href = "pages/register.html";
 }
