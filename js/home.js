@@ -1,9 +1,9 @@
 function myEvents() {
-
+  window.location.href = "myEvents.php";
 }
 
 function myAds() {
-    
+  window.location.href = "myAds.php";
 }
 
 function searchEvent() {
@@ -18,12 +18,12 @@ function create() {
     $('#choose').modal('show');
 }
 
-function createEvent() {
-    
+function createEvents() {
+  window.location.href = "event.html";
 }
 
-function createAd() {
-    
+function createAds() {
+  window.location.href = "ad.html";
 }
 
 window.onload = function() {

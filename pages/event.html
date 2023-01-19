@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Create Event</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="../css/forms.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="testbox">
+      <form method="POST">
+        <div class="banner">
+          <h1>Create an Event</h1>
+        </div>
+        <div class="item">
+          <p>Date of Event</p>
+          <input id="ev-date" type="date" name="bdate" />
+          <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="item">
+          <p>Time of Event</p>
+          <input id="ev-time" type="time" name="name" />
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="item">
+            <p>Event Name</p>
+          <input id="ev-name" type="text" name="name"/>
+        </div>
+        <div class="item">
+          <p>Event Description</p>
+          <textarea id="ev-desc" rows="3" ></textarea>
+        </div>
+        <div class="item">
+          <p>Location</p>
+          <input id="ev-place" type="text" name="name"/>
+        </div>
+        <div class="item">
+          <p>Requested Number of Participants</p>
+          <input id="ev-part" type="number" name="name"/>
+        </div>
+        <div class="btn-block">
+          <button onclick="publishEvent()">SEND</button>
+        </div>
+      </form>
+    </div>
+
+    <script src="../js/jquery.min.js"></script> <!-- jQuery for Bootstrap's JavaScript plugins -->
+    <script src="../js/popper.min.js"></script> <!-- Popper tooltip library for Bootstrap -->
+    <script src="../js/bootstrap.min.js"></script> <!-- Bootstrap framework -->
+    <script src="../js/jquery.easing.min.js"></script> <!-- jQuery Easing for smooth scrolling between anchors -->
+    <script src="../js/swiper.min.js"></script> <!-- Swiper for image and text sliders -->
+    <script src="../js/jquery.magnific-popup.js"></script> <!-- Magnific Popup for lightboxes -->
+    <script src="../js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
+    <script src="../js/event.js"></script> 
+
+  </body>
+</html>

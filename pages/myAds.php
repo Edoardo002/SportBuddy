@@ -3,8 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <title>SportBuddy</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -35,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand logo-text page-scroll"> <?php  include "../php/connect.php"; session_start(); $nickname = $_SESSION['nickname']; echo $nickname;?></a>
+            <a class="navbar-brand logo-text page-scroll" href="home.php"> <?php  session_start(); echo $_SESSION['nickname'];?></a>
             
             <span id="1" class="fa fa-star"></span>
             <span id="2" class="fa fa-star"></span>
@@ -89,8 +87,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h1>Home</h1>
-                        <p class="p-large p-heading">These are your to-do activities</p>
+                        <h1>My Ads</h1>
+                        <p class="p-large p-heading">These are all the Ads created by you</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -113,83 +111,8 @@
     </header> <!-- end of header -->
     <!-- end of header -->
 
-    <?php
-        $sql = "SELECT * FROM Events WHERE id IN (SELECT event_id FROM EventPart WHERE user_nick = '$nickname')";
-        $res = $conn->query($sql); 
-         while($row = $res->fetch_assoc()) {
-            $creator = $row['creator'];
-            $name = $row['name'];
-            $description = $row['description'];
-            $date = $row['date'];
-            $time = $row['time'];
-            $place = $row['place'];
-            $max_part = (int)$row['max_part'];
-            $part = (int)$row['part'];
-            echo "<div class='courses-container'>
-            <div class='course'>
-                <div class='course-preview'>
-                    <h6>Event</h6>
-                    <h2>$creator</h2>
-                    <a href='#'>Description<i class='fas fa-chevron-right'></i></a>
-                </div>
-                <div class='course-info'>
-                    <div class='progress-container'>
-                        <div";
-                        if ($part==0) echo " class='progress_0'></div>";
-                        else if ($part/$max_part < 0.25) echo " class='progress_1'></div>";
-                        else if ($part/$max_part < 0.50) echo " class='progress_2'></div>";
-                        else if ($part/$max_part < 0.75) echo " class='progress_3'></div>";
-                        else if ($part/$max_part < 0.95) echo " class='progress_4'></div>";
-                        else if ($part/$max_part == 1) echo " class='progress_5'></div>";
-                        echo "<span class='progress-text'>
-                        $part/$max_part have joined
-                        </span>
-                    </div>
-                    <h6>$date, $time</h6>
-                    <h2>$name</h2>
-                    <button class='btn'>Forfeit</button>
-                </div>
-            </div>
-            </div>";
-            }
 
-        $sql2 = "SELECT * FROM Ads WHERE id IN (SELECT ad_id FROM AdPart WHERE user_nick = '$nickname')";
-        $res2 = $conn->query($sql2); 
-         while($row2 = $res2->fetch_assoc()) {
-            $creator2 = $row2['creator'];
-            $name2 = $row2['name'];
-            $description2 = $row2['description'];
-            $needed_people = (int)$row2['needed_people'];
-            $joined_people = (int)$row2['joined_people'];
-            $price = (double)$row2['price'];
-            echo "<div class='courses-container'>
-            <div class='course'>
-                <div class='course-preview_2'>
-                    <h6>Ad</h6>
-                    <h2>$creator2</h2>
-                    <a href='#'>Description<i class='fas fa-chevron-right'></i></a>
-                </div>
-                <div class='course-info'>
-                    <div class='progress-container'>
-                        <div";
-                        if ($joined_people==0) echo " class='progress_0'></div>";
-                        else if ($joined_people/$needed_people < 0.25) echo " class='progress_1'></div>";
-                        else if ($joined_people/$needed_people < 0.50) echo " class='progress_2'></div>";
-                        else if ($joined_people/$needed_people < 0.75) echo " class='progress_3'></div>";
-                        else if ($joined_people/$needed_people < 0.95) echo " class='progress_4'></div>";
-                        else if ($joined_people/$needed_people == 1) echo " class='progress_5'></div>";
-                        echo "<span class='progress-text'>
-                        $joined_people/$needed_people have joined
-                        </span>
-                    </div>
-                    <h6>$price € </h6>
-                    <h2>$name2</h2>
-                    <button class='btn'>Forfeit</button>
-                </div>
-            </div>
-            </div>";
-            }
-    ?>
+    
 
     <div class="modal fade" id="choose" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticRatingLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -222,6 +145,5 @@
     <script src="../js/validator.min.js"></script> <!-- Validator.js - Bootstrap plugin that validates forms -->
     <script src="../js/scripts.js"></script> <!-- Custom scripts -->
     <script src="../js/home.js"></script> <!-- Custom scripts -->
-    <script src="../js/cards.js"></script> <!-- Custom scripts -->
 </body>
 </html>
