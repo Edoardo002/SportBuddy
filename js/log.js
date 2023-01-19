@@ -18,7 +18,7 @@ function login() {
             
         }
         }
-        xhttp.open("POST", "php/login.php", false);
+        xhttp.open("POST", "php/login.php", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send("mail="+mail+"&psw="+psw);
 }
