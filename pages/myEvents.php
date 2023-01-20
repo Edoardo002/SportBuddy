@@ -33,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <div class="container">
-            <a class="navbar-brand logo-text page-scroll" href="home.php"> <?php  session_start(); echo $_SESSION['nickname'];?></a>
+            <a class="navbar-brand logo-text page-scroll" href="home.php"> <?php include "../php/connect.php"; session_start(); $nickname = $_SESSION['nickname']; echo $nickname;?></a>
             
             <span id="1" class="fa fa-star"></span>
             <span id="2" class="fa fa-star"></span>
@@ -60,6 +60,9 @@
 
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link page-scroll mt-2" onclick="pastActivities()">PAST ACTIVITIES</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link page-scroll mt-2" onclick="myEvents()">MY EVENTS<span class="sr-only">(current)</span></a>
                     </li>
@@ -111,6 +114,48 @@
     </header> <!-- end of header -->
     <!-- end of header -->
 
+    <?php
+        $sql = "SELECT * FROM Events WHERE creator = '$nickname' ORDER BY Events.date";
+        $res = $conn->query($sql); 
+         while($row = $res->fetch_assoc()) {
+            $id = $row['id'];
+            $creator = $row['creator'];
+            $name = $row['name'];
+            $description = $row['description'];
+            $date = $row['date'];
+            $time = $row['time'];
+            $place = $row['place'];
+            $max_part = (int)$row['max_part'];
+            $part = (int)$row['part'];
+            echo "<div class='courses-container'>
+            <div class='course'>
+                <div class='course-preview'>
+                    <h6>Event</h6>
+                    <h2>$creator</h2>
+                    <a onclick='descEvent($id, \" $name \", \" $description \")'>Description<i class='fas fa-chevron-right'></i></a>
+                </div>
+                <div class='course-info'>
+                    <div class='progress-container'>
+                        <div";
+                        if ($part==0) echo " class='progress_0'></div>";
+                        else if ($part/$max_part < 0.25) echo " class='progress_1'></div>";
+                        else if ($part/$max_part < 0.50) echo " class='progress_2'></div>";
+                        else if ($part/$max_part < 0.75) echo " class='progress_3'></div>";
+                        else if ($part/$max_part < 0.95) echo " class='progress_4'></div>";
+                        else if ($part/$max_part == 1) echo " class='progress_5'></div>";
+                        echo "<span class='progress-text'>
+                        $part/$max_part have joined
+                        </span>
+                    </div>
+                    <h6>$date, $time</h6>
+                    <h2>$name</h2>
+                    <button class='btn' onclick='deleteEvent($id)'>DELETE</button>
+                </div>
+            </div>
+            </div>";
+            }
+    ?>
+
     <div class="modal fade" id="choose" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticRatingLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -128,6 +173,25 @@
                 <button class="btn-outline-sm page-scroll" onclick="createAds()">Ad</button>
             </span>
         </div>   
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="desc" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticRatingLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="descLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="rounded  mt-5 mb-5 text-center">
+        <p id="descText"></p>
+        </div><h5 class="text-center">PARTICIPANTS</h5>
+        <div class="rounded  mt-5 mb-5 text-center">
+        <p id="descPart"></p>
+        </div>  
         </div>
         </div>
     </div>

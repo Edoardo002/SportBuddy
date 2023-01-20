@@ -90,8 +90,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h1>My Ads</h1>
-                        <p class="p-large p-heading">These are all the Ads created by you</p>
+                        <h1>Search Ads</h1>
+                        <p class="p-large p-heading">Here you can find all the Ads posted by other users</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -115,7 +115,7 @@
     <!-- end of header -->
 
     <?php
-    $sql = "SELECT * FROM Ads WHERE creator = '$nickname' ORDER BY Ads.price";
+    $sql = "SELECT * FROM Ads WHERE creator!='$nickname' ORDER BY Ads.price";
         $res = $conn->query($sql);
          while($row = $res->fetch_assoc()) {
             $id = $row['id'];
@@ -147,7 +147,7 @@
                     </div>
                     <h6>$price € </h6>
                     <h2>$name</h2>
-                    <button class='btn' onclick='deleteAd($id)'>DELETE</button>
+                    <button class='btn_join' onclick='joinAd($id, \" $name \")'>JOIN</button>
                 </div>
             </div>
             </div>";
@@ -186,10 +186,10 @@
         </div>
         <div class="rounded  mt-5 mb-5 text-center">
         <p id="descText"></p>
-        </div><h5 class="text-center">PARTICIPANTS</h5>
+        </div> <h5 class="text-center">PARTICIPANTS</h5>
         <div class="rounded  mt-5 mb-5 text-center">
         <p id="descPart"></p>
-        </div>   
+        </div>  
         </div>
         </div>
     </div>

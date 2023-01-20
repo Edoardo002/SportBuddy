@@ -63,6 +63,9 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
+                        <a class="nav-link page-scroll mt-2" onclick="pastActivities()">PAST ACTIVITIES</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link page-scroll mt-2" onclick="myEvents()">MY EVENTS<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
@@ -114,9 +117,10 @@
     <!-- end of header -->
 
     <?php
-        $sql = "SELECT * FROM Events WHERE id IN (SELECT event_id FROM EventPart WHERE user_nick = '$nickname')";
+        $sql = "SELECT * FROM Events WHERE id IN (SELECT event_id FROM EventPart WHERE user_nick = '$nickname') ORDER BY Events.date";
         $res = $conn->query($sql); 
          while($row = $res->fetch_assoc()) {
+            $id = $row['id'];
             $creator = $row['creator'];
             $name = $row['name'];
             $description = $row['description'];
@@ -130,7 +134,7 @@
                 <div class='course-preview'>
                     <h6>Event</h6>
                     <h2>$creator</h2>
-                    <a href='#'>Description<i class='fas fa-chevron-right'></i></a>
+                    <a onclick='descEvent($id, \" $name \", \" $description \")'>Description<i class='fas fa-chevron-right'></i></a>
                 </div>
                 <div class='course-info'>
                     <div class='progress-container'>
@@ -147,15 +151,16 @@
                     </div>
                     <h6>$date, $time</h6>
                     <h2>$name</h2>
-                    <button class='btn'>Forfeit</button>
+                    <button class='btn' onclick='forfeitEvent($id)'>Forfeit</button>
                 </div>
             </div>
             </div>";
             }
 
-        $sql2 = "SELECT * FROM Ads WHERE id IN (SELECT ad_id FROM AdPart WHERE user_nick = '$nickname')";
+        $sql2 = "SELECT * FROM Ads WHERE id IN (SELECT ad_id FROM AdPart WHERE user_nick = '$nickname') ORDER BY Ads.price";
         $res2 = $conn->query($sql2); 
          while($row2 = $res2->fetch_assoc()) {
+            $id2 = $row2['id'];
             $creator2 = $row2['creator'];
             $name2 = $row2['name'];
             $description2 = $row2['description'];
@@ -167,7 +172,7 @@
                 <div class='course-preview_2'>
                     <h6>Ad</h6>
                     <h2>$creator2</h2>
-                    <a href='#'>Description<i class='fas fa-chevron-right'></i></a>
+                    <a onclick='descAd($id2, \" $name2 \", \" $description2 \")'>Description<i class='fas fa-chevron-right'></i></a>
                 </div>
                 <div class='course-info'>
                     <div class='progress-container'>
@@ -184,7 +189,7 @@
                     </div>
                     <h6>$price € </h6>
                     <h2>$name2</h2>
-                    <button class='btn'>Forfeit</button>
+                    <button class='btn' onclick='forfeitAd($id2)'>Forfeit</button>
                 </div>
             </div>
             </div>";
@@ -208,6 +213,25 @@
                 <button class="btn-outline-sm page-scroll" onclick="createAds()">Ad</button>
             </span>
         </div>   
+        </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="desc" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticRatingLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="descLabel"></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="rounded  mt-5 mb-5 text-center">
+        <p id="descText"></p>
+        </div><h5 class="text-center">PARTICIPANTS</h5>
+        <div class="rounded  mt-5 mb-5 text-center">
+        <p id="descPart"></p>
+        </div>  
         </div>
         </div>
     </div>

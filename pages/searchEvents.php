@@ -90,8 +90,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="text-container">
-                        <h1>My Ads</h1>
-                        <p class="p-large p-heading">These are all the Ads created by you</p>
+                        <h1>Search Events</h1>
+                        <p class="p-large p-heading">Here you can find all the Events posted by other users</p>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -115,39 +115,41 @@
     <!-- end of header -->
 
     <?php
-    $sql = "SELECT * FROM Ads WHERE creator = '$nickname' ORDER BY Ads.price";
-        $res = $conn->query($sql);
+        $sql = "SELECT * FROM Events WHERE creator!='$nickname' ORDER BY Events.date";
+        $res = $conn->query($sql); 
          while($row = $res->fetch_assoc()) {
             $id = $row['id'];
             $creator = $row['creator'];
             $name = $row['name'];
             $description = $row['description'];
-            $needed_people = (int)$row['needed_people'];
-            $joined_people = (int)$row['joined_people'];
-            $price = (double)$row['price'];
+            $date = $row['date'];
+            $time = $row['time'];
+            $place = $row['place'];
+            $max_part = (int)$row['max_part'];
+            $part = (int)$row['part'];
             echo "<div class='courses-container'>
             <div class='course'>
-                <div class='course-preview_2'>
-                    <h6>Ad</h6>
+                <div class='course-preview'>
+                    <h6>Event</h6>
                     <h2>$creator</h2>
-                    <a onclick='descAd($id, \" $name \", \" $description \")'>Description<i class='fas fa-chevron-right'></i></a>
+                    <a onclick='descEvent($id, \" $name \", \" $description \")'>Description<i class='fas fa-chevron-right'></i></a>
                 </div>
                 <div class='course-info'>
                     <div class='progress-container'>
                         <div";
-                        if ($joined_people==0) echo " class='progress_0'></div>";
-                        else if ($joined_people/$needed_people < 0.25) echo " class='progress_1'></div>";
-                        else if ($joined_people/$needed_people < 0.50) echo " class='progress_2'></div>";
-                        else if ($joined_people/$needed_people < 0.75) echo " class='progress_3'></div>";
-                        else if ($joined_people/$needed_people < 0.95) echo " class='progress_4'></div>";
-                        else if ($joined_people/$needed_people == 1) echo " class='progress_5'></div>";
+                        if ($part==0) echo " class='progress_0'></div>";
+                        else if ($part/$max_part < 0.25) echo " class='progress_1'></div>";
+                        else if ($part/$max_part < 0.50) echo " class='progress_2'></div>";
+                        else if ($part/$max_part < 0.75) echo " class='progress_3'></div>";
+                        else if ($part/$max_part < 0.95) echo " class='progress_4'></div>";
+                        else if ($part/$max_part == 1) echo " class='progress_5'></div>";
                         echo "<span class='progress-text'>
-                        $joined_people/$needed_people have joined
+                        $part/$max_part have joined
                         </span>
                     </div>
-                    <h6>$price € </h6>
+                    <h6>$date, $time</h6>
                     <h2>$name</h2>
-                    <button class='btn' onclick='deleteAd($id)'>DELETE</button>
+                    <button class='btn_join' onclick='joinEvent($id, \" $name \")'>JOIN</button>
                 </div>
             </div>
             </div>";
@@ -189,7 +191,7 @@
         </div><h5 class="text-center">PARTICIPANTS</h5>
         <div class="rounded  mt-5 mb-5 text-center">
         <p id="descPart"></p>
-        </div>   
+        </div> 
         </div>
         </div>
     </div>
